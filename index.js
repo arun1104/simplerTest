@@ -24,7 +24,8 @@ class ReviewManagement{
       result.street = (businessPromiseValue.value.data.location) ? businessPromiseValue.value.data.location.address3 : constants.EMPTY;
       return result;
     } else {
-      return {message: constants.YELP_REVIEWS_ERROR, code: constants.YELP_ERROR};
+      let errObj = {message: constants.YELP_REVIEWS_ERROR, code: constants.YELP_ERROR};
+      throw errObj;
     }
   }
 
@@ -35,7 +36,8 @@ class ReviewManagement{
       reviews = reviews.data.reviews;
       return reviews[reviews.length - 1];
     } else {
-      return {message: constants.YELP_REVIEWS_ERROR, code: constants.YELP_ERROR};
+      let errObj = {message: constants.YELP_REVIEWS_ERROR, code: constants.YELP_ERROR};
+      throw errObj;
     }
   }
 
