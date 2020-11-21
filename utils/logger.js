@@ -1,7 +1,7 @@
 'use strict';
 const constants = require('./constants');
-const appName = 'notification-api';
-const env = process.env.NODE_ENV || 'development';
+const appName = constants.APP_NAME;
+const env = process.env.NODE_ENV || constants.DEV;
 const util = require('util');
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp } = format;

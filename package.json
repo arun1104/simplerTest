@@ -5,7 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.21.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "uuid": "^8.3.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
@@ -16,7 +18,7 @@
     "sinon": "^9.2.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node -r dotenv/config index.js",
     "test": "npm run unit-tests && echo 'Done.'",
     "unit-tests": "node ./node_modules/mocha/bin/mocha --timeout 10000 --recursive ./test/unit/",
     "coverage": "nyc --reporter=html --reporter=lcov mocha --recursive ./test/unit --reporter mochawesome --exit"

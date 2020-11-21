@@ -1,6 +1,8 @@
 'use strict';
 const axios = require('axios');
 const constants = require('./utils/constants');
+const Logger = require('./utils/logger');
+const {v4: uuidv4} = require('uuid');
 
 class ReviewManagement{
   constructor(){
@@ -61,13 +63,26 @@ class ReviewManagement{
   }
 
   async getBestReview(businessId){
-    let reviewsPromise = this.getBusinessClientReviews(businessId);
-    let businessInfoPromise = this.getBusinessInfo(businessId);
-    let promResArray = await Promise.allSettled([businessInfoPromise, reviewsPromise]);
-    let topReview = this.getTopReview(promResArray[1]);
-    let businessInfo = this.formatBusinessInfo(promResArray[0]);
-    let result = this.formatResponse(topReview, businessInfo);
-    return result;
+    let correlationId = uuidv4();
+    const logger = new Logger(correlationId, 'getBestReview-ReviewManagement', 'getBestReview');
+    logger.info('Entry');
+    try {
+      let reviewsPromise = this.getBusinessClientReviews(businessId);
+      let businessInfoPromise = this.getBusinessInfo(businessId);
+      let promResArray = await Promise.allSettled([businessInfoPromise, reviewsPromise]);
+      logger.info('businessInfoPromise responses status', promResArray[0].status);
+      logger.info('reviewsPromise responses status', promResArray[1].status);
+      logger.info('businessInfoPromise responses value', promResArray[0].value.data);
+      logger.info('reviewsPromise responses value', promResArray[1].value.data);
+      let topReview = this.getTopReview(promResArray[1]);
+      let businessInfo = this.formatBusinessInfo(promResArray[0]);
+      let result = this.formatResponse(topReview, businessInfo);
+      return result;
+    } catch (err){
+      logger.error(err);
+      return err;
+    }
+
   }
 
   sort(items, attribute){

@@ -10,4 +10,8 @@ module.exports = {
   RATING: 'rating',
   BEARER: 'Bearer ',
   EMPTY: '',
+  APP_NAME: 'Simplrr',
+  DEV: 'development',
+  LOG_LEVEL_INFO: 'info',
+  LOG_LEVEL_ERROR: 'error',
 };
