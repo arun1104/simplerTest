@@ -1,12 +1,12 @@
 'use strict';
-const axios = require('axios');
+const {httpClient} = require('./services/httpService');
 const constants = require('./utils/constants');
 const Logger = require('./utils/logger');
 const {v4: uuidv4} = require('uuid');
 require('dotenv').config();
 class ReviewManagement{
-  constructor(){
-    this.httpClient = axios;
+  constructor(httpClient){
+    this.httpClient = httpClient;
     this.getBusinessClientReviews = this.getBusinessReviews.bind(this);
     this.getBusinessInfo = this.getBusinessInfo.bind(this);
     this.getBusinessList = this.getBusinessList.bind(this);
@@ -63,7 +63,7 @@ class ReviewManagement{
         Authorization: `${constants.BEARER}${process.env.YELP_FUSION_TOKEN}`,
       },
     };
-    return axios.get(businessInfoUrl, headers);
+    return this.httpClient.get(businessInfoUrl, headers);
   }
 
   formatBusinessInfo(businessPromiseValue){
@@ -88,7 +88,7 @@ class ReviewManagement{
         Authorization: `${constants.BEARER}${process.env.YELP_FUSION_TOKEN}`,
       },
     };
-    return axios.get(businessInfoUrl, headers);
+    return this.httpClient.get(businessInfoUrl, headers);
   }
 
   async getBusinessInfo(businessId){
@@ -99,7 +99,7 @@ class ReviewManagement{
         Authorization: `${constants.BEARER}${process.env.YELP_FUSION_TOKEN}`,
       },
     };
-    return axios.get(businessInfoUrl, headers);
+    return this.httpClient.get(businessInfoUrl, headers);
   }
 
   async getBusinessReviewsSynchronously(ids){
@@ -239,7 +239,7 @@ class ReviewManagement{
   }
 }
 async function main(){
-  const reviewManagement = new ReviewManagement();
+  const reviewManagement = new ReviewManagement(httpClient);
   const response = await reviewManagement.getBestReview(constants.ICE_CREAM_CATEGORY, constants.REDWOOD_CITY, 10);
   console.log(response);
   return response;
