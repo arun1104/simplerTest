@@ -7,12 +7,7 @@ require('dotenv').config();
 class ReviewManagement{
   constructor(httpClient){
     this.httpClient = httpClient;
-    this.getBusinessClientReviews = this.getBusinessReviews.bind(this);
-    this.getBusinessInfo = this.getBusinessInfo.bind(this);
-    this.getBusinessList = this.getBusinessList.bind(this);
-    this.getBestReview = this.getBestReview.bind(this);
-    this.formatResponse = this.formatResponse.bind(this);
-    this.formatBusinessInfo = this.formatBusinessInfo.bind(this);
+    this.getTopBusinesses = this.getTopBusinesses.bind(this);
   }
 
   async getUnresolvedPromisesSynchronously(type, businessIds){
@@ -170,13 +165,11 @@ class ReviewManagement{
     });
   }
 
-  async getBestReview(categories, location, topCount){
+  async getTopBusinesses(categories, location, topCount){
     let correlationId = uuidv4();
-    const logger = new Logger(correlationId, 'getBestReview-ReviewManagement', 'getBestReview');
+    const logger = new Logger(correlationId, 'getTopBusinesses-ReviewManagement', 'getTopBusinesses');
     logger.info('Entry');
     try {
-    //   let reviewsPromise = this.getBusinessClientReviews(businessId);
-    //   let businessInfoPromise = this.getBusinessInfo(businessId);
       let queryOptions = {
         categories,
         location,
@@ -185,6 +178,7 @@ class ReviewManagement{
         sort_by: constants.SORT_BY_RATING,
       };
       let businessList = await this.getBusinessList(queryOptions);
+      logger.info('businessList', businessList.data);
       let businessReviewMap = new Map();
       let businessInfoMap = new Map();
       let businessIds = businessList.data.businesses.map(e => e.id);
@@ -194,6 +188,7 @@ class ReviewManagement{
       let businessReviewsPromisesRespArray = await Promise.allSettled(businessReviewsPromisesArray);
       let unResolvedReviewPromises = this.getUnResolved_BusinessReviewPromises(businessReviewsPromisesRespArray,
         businessIds, businessReviewMap);
+      logger.info('unResolvedReviewPromises', unResolvedReviewPromises);
       let pendingResponses = await this.getUnresolvedPromisesSynchronously('review', unResolvedReviewPromises);
       this.fillBusinessReviewMap(businessReviewMap, pendingResponses);
 
@@ -201,9 +196,12 @@ class ReviewManagement{
       let businessInfoPromisesArray = this.generateBusinessInfoPromiseArray(businessIds);
       let businessInfoPromisesRespArray = await Promise.allSettled(businessInfoPromisesArray);
       let unResolvedInfoPromises = this.getUnResolved_BusinessInfoPromises(businessInfoPromisesRespArray, businessIds, businessInfoMap);
+      logger.info('unResolvedInfoPromises', unResolvedInfoPromises);
       let pendingReviewResponses = await this.getUnresolvedPromisesSynchronously('businessInfo', unResolvedInfoPromises);
       this.fillBusinessInfoMap(businessInfoMap, pendingReviewResponses);
+
       let result = this.formatResponse(businessReviewMap, businessInfoMap, businessIds);
+      logger.info('result', result);
       return result;
     } catch (err){
       logger.error(err);
@@ -240,7 +238,7 @@ class ReviewManagement{
 }
 async function main(){
   const reviewManagement = new ReviewManagement(httpClient);
-  const response = await reviewManagement.getBestReview(constants.ICE_CREAM_CATEGORY, constants.REDWOOD_CITY, 10);
+  const response = await reviewManagement.getTopBusinesses(constants.ICE_CREAM_CATEGORY, constants.REDWOOD_CITY, 10);
   console.log(response);
   return response;
 }
