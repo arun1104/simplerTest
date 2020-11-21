@@ -1,6 +1,7 @@
 'use strict';
 module.exports = {
   YELP_FUSION_GET_REVIEWS_URL: 'businesses/{}/reviews',
+  YELP_GET_BUSINESSES_WITH_CATEGORIES_URL: 'businesses/search',
   YELP_FUSION_GET_BUSINESS_INFO_URL: 'businesses',
   PROMISE_FULFILLED: 'fulfilled',
   YELP_ERROR: 'E_500',
@@ -14,4 +15,7 @@ module.exports = {
   DEV: 'development',
   LOG_LEVEL_INFO: 'info',
   LOG_LEVEL_ERROR: 'error',
+  ICE_CREAM_CATEGORY: 'icecream',
+  REDWOOD_CITY: 'Redwood City',
+  SORT_BY_RATING: 'rating',
 };
