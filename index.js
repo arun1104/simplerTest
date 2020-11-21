@@ -3,7 +3,7 @@ const axios = require('axios');
 const constants = require('./utils/constants');
 const Logger = require('./utils/logger');
 const {v4: uuidv4} = require('uuid');
-
+require('dotenv').config();
 class ReviewManagement{
   constructor(){
     this.httpClient = axios;
