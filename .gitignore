@@ -1,0 +1,40 @@
+.nyc_output
+.env
+coverage
+mochawesome-report
+node_modules/
+node_modules
+/node_modules
+server/node_modules
+server/package-lock.json
+test/unit/api/node_modules
+dist
+ui/node_modules
+.env
+ui
+website
+# IDE - VSCode
+ui/.vscode
+ui/.vscode/*
+ui/!.vscode/settings.json
+ui/!.vscode/tasks.json
+ui/!.vscode/launch.json
+ui/!.vscode/extensions.json
+
+# misc
+ui/.sass-cache
+ui/connect.lock
+ui/coverage/*
+ui/libpeerconnection.log
+ui/npm-debug.log
+ui/testem.log
+ui/typings
+ui/package-lock.json
+# e2e
+ui/e2e/*.js
+ui/e2e/*.map
+
+#System Files
+ui/.DS_Store
+ui/Thumbs.db
+ui/!.gitkeep

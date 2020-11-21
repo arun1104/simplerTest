@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "-r",
+                "dotenv/config"
+                ],
+            "outputCapture": "std",
+            "env": {
+                "YELP_FUSION_CLIENT_ID": "5p6FyEXmBc-X6nRXxru8Ag",
+                "YELP_FUSION_TOKEN": "pSxxXBpunBnBT0mIoP_m6VTEy32nmGTOG8xO5_9ehd8uIPpSgZvaSTxqmVoNdR_OxuXI2u5JLB5gltsjBUxat5sy4ci96wvRmWJT_Bmw473B48rMEeZQml2lcPBeX3Yx",
+                "YELP_FUSION_URL": "https://api.yelp.com/v3"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Mocha Current File",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+               "${file}"
+             ],
+             "cwd": "${workspaceRoot}",
+            "outputCapture": "std"
+        }
+    ]
+}

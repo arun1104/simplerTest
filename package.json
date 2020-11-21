@@ -1,0 +1,34 @@
+{
+  "name": "simplertest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "mocha": "^8.1.3",
+    "mochawesome": "^6.1.1",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "npm run unit-tests && echo 'Done.'",
+    "unit-tests": "node ./node_modules/mocha/bin/mocha --timeout 10000 --recursive ./test/unit/",
+    "coverage": "nyc --reporter=html --reporter=lcov mocha --recursive ./test/unit --reporter mochawesome --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arun1104/simplerTest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arun1104/simplerTest/issues"
+  },
+  "homepage": "https://github.com/arun1104/simplerTest#readme"
+}
