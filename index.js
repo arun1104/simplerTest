@@ -17,9 +17,9 @@ class ReviewManagement{
   formatBusinessInfo(businessPromiseValue){
     if (businessPromiseValue.status === constants.PROMISE_FULFILLED){
       let result = {};
-      result.name = businessPromiseValue.value.data.name;
-      result.city = businessPromiseValue.value.data.location.city;
-      result.street = businessPromiseValue.value.data.location.address3;
+      result.name = businessPromiseValue.value.data.name || constants.EMPTY;
+      result.city = (businessPromiseValue.value.data.location) ? businessPromiseValue.value.data.location.city : constants.EMPTY;
+      result.street = (businessPromiseValue.value.data.location) ? businessPromiseValue.value.data.location.address3 : constants.EMPTY;
       return result;
     } else {
       return {message: constants.YELP_REVIEWS_ERROR, code: constants.YELP_ERROR};
@@ -43,7 +43,7 @@ class ReviewManagement{
     let businessInfoUrl = `${process.env.YELP_FUSION_URL}/${relativeUrl}`;
     let headers = {
       headers: {
-        Authorization: `Bearer ${process.env.YELP_FUSION_TOKEN}`,
+        Authorization: `${constants.BEARER}${process.env.YELP_FUSION_TOKEN}`,
       },
     };
     return axios.get(businessInfoUrl, headers);
@@ -54,7 +54,7 @@ class ReviewManagement{
     let businessInfoUrl = `${process.env.YELP_FUSION_URL}/${relativeUrl}/${businessId}`;
     let headers = {
       headers: {
-        Authorization: `Bearer ${process.env.YELP_FUSION_TOKEN}`,
+        Authorization: `${constants.BEARER}${process.env.YELP_FUSION_TOKEN}`,
       },
     };
     return axios.get(businessInfoUrl, headers);
@@ -93,3 +93,4 @@ async function main(){
 }
 
 main();
+module.exports = new ReviewManagement();

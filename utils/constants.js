@@ -8,4 +8,6 @@ module.exports = {
   YELP_REVIEWS_ERROR: 'Unable to get reviews of given business',
   YELP_BUSINESS_ERROR: 'Unable to get business info',
   RATING: 'rating',
+  BEARER: 'Bearer ',
+  EMPTY: '',
 };
