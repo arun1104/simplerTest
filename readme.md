@@ -10,3 +10,14 @@ Requirements
 
 Prerequisites:
 Yelp api credentials
+
+Reference:
+Yelp Apis:
+REST API https://api.yelp.com/v3/businesses/{businessId}/reviews - to get reviews
+Doc reference: https://www.yelp.com/developers/documentation/v3/business_reviews
+
+REST API https://api.yelp.com/v3/businesses/{businessId} - to get business info
+
+How to run:
+1) npm i - To install libraries
+2) npm start - to run from command line.
