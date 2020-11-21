@@ -11,6 +11,7 @@ Requirements
 Prerequisites:
 Yelp api credentials
 
+
 Reference:
 Yelp Apis:
 REST API https://api.yelp.com/v3/businesses/{businessId}/reviews - to get reviews
@@ -21,3 +22,12 @@ REST API https://api.yelp.com/v3/businesses/{businessId} - to get business info
 How to run:
 1) npm i - To install libraries
 2) npm start - to run from command line.
+
+How to test?
+1) npm test - To run unit tests
+
+How to do integration tests?
+1) Go to test/integration.
+2) Run the indexTest.js file using debugger.
+
+Debug configurations added for tests as well as index.js.
